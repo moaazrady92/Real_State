@@ -61,13 +61,14 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'realestate_db',
-        'USER': 'realestate_user',
-        'PASSWORD': 'realestate_pass',
-        'HOST': '127.0.0.1',  # Using 127.0.0.1 explicitly bypasses Windows IPv6 ::1 issues
-        'PORT': '5433',       # Changed to match the new Docker port mapping
+        'NAME': 'real_state_db',
+        'USER': 'real_state_user',
+        'PASSWORD': 'real_state_pass',
+        'HOST': '127.0.0.1',  # Restore this to localhost loopback
+        'PORT': '5433',
     }
 }
+
 
 
 AUTH_PASSWORD_VALIDATORS = [

@@ -14,7 +14,7 @@ class Listing(models.Model):
     price = models.DecimalField(max_digits=12, decimal_places=2)
     address = models.CharField(max_length=100, blank=True)
     source = models.CharField(max_length=20, choices=SOURCE_CHOICES, default="manual")
-    source_url = models.URLField(blank=True, null=True)  # original link if scraped
+    source_url = models.URLField(blank=True, null=True, unique=True)
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
