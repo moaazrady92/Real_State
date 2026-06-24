@@ -1,5 +1,5 @@
 from celery import shared_task
-from .services import run_aqarmap_scraper, run_bayut_scraper
+from .services import run_aqarmap_scraper, run_bayut_scraper, run_nawy_scraper
 
 AQARMAP_LOCATIONS = [
     "for-sale/property-type/cairo",
@@ -69,3 +69,19 @@ def scrape_all_sources():
     """Master task — runs all scrapers."""
     scrape_all_aqarmap.delay()
     scrape_bayut.delay()
+
+@shared_task
+def scrape_nawy(max_pages=3):
+    run = run_nawy_scraper(max_pages=max_pages)
+    return {
+        "status": run.status,
+        "found": run.listings_found,
+        "created": run.listings_created,
+        "updated": run.listings_updated,
+    }
+
+@shared_task
+def scrape_all_sources():
+    scrape_all_aqarmap.delay()
+    scrape_bayut.delay()
+    scrape_nawy.delay()
